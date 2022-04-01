@@ -12,10 +12,12 @@
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
+        <spring.version>5.3.17</spring.version>
     </properties>
 
     <modules>
         <module>homework-01-servlet-api</module>
+        <module>homework-02-spring-basics</module>
     </modules>
 
 </project>
