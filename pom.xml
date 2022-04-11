@@ -10,14 +10,16 @@
     <packaging>pom</packaging>
 
     <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <spring.version>5.3.17</spring.version>
     </properties>
 
     <modules>
         <module>homework-01-servlet-api</module>
         <module>homework-02-spring-basics</module>
+        <module>homework-03-spring-mvc</module>
+        <module>homework-04-spring-boot</module>
     </modules>
 
 </project>
