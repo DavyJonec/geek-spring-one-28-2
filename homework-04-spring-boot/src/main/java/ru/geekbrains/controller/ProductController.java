@@ -1,6 +1,7 @@
 package ru.geekbrains.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +30,8 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public String form(@PathVariable("id") long id, Model model) {
-        model.addAttribute("product", productRepository.findById(id));
+        model.addAttribute("product", productRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not found")));
         return "product_form";
     }
 
@@ -52,5 +54,12 @@ public class ProductController {
     public String delete(@PathVariable long id){
         productRepository.delete(id);
         return "redirect:/product";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler
+    public String notFoundExceptionHandler(Model model, NotFoundException ex){
+        model.addAttribute("message", ex.getMessage());
+        return "not_found";
     }
 }
