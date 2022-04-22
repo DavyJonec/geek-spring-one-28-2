@@ -1,6 +1,8 @@
 package ru.geekbrains.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -18,14 +20,21 @@ public class Product {
     private String title;
 
     @Column
-    private int cost;
+    private String description;
 
-    public Product(String title, int cost) {
-        this.title = title;
-        this.cost = cost;
-    }
+    @Column(nullable = false)
+    private BigDecimal cost;
+
+    @OneToMany(mappedBy = "product")
+    private List<LineItem> lineItems;
 
     public Product() {
+    }
+
+    public Product(String title, String description, BigDecimal cost) {
+        this.title = title;
+        this.description = description;
+        this.cost = cost;
     }
 
     public Long getId() {
@@ -44,12 +53,28 @@ public class Product {
         this.title = title;
     }
 
-    public int getCost() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
+    }
+
+    public List<LineItem> getLineItems() {
+        return lineItems;
+    }
+
+    public void setLineItems(List<LineItem> lineItems) {
+        this.lineItems = lineItems;
     }
 
     @Override

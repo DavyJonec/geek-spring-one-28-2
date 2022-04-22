@@ -17,5 +17,7 @@
         <property name="hibernate.format_sql">true</property>
 
         <mapping class="ru.geekbrains.model.Product"/>
+        <mapping class="ru.geekbrains.model.Customer"/>
+        <mapping class="ru.geekbrains.model.LineItem"/>
     </session-factory>
 </hibernate-configuration>

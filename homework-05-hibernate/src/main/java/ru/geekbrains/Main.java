@@ -1,12 +1,12 @@
 package ru.geekbrains;
 
 
-import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.geekbrains.model.Product;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.List;
 
 
 public class Main {
@@ -17,6 +17,7 @@ public class Main {
 
         EntityManager em = emFactory.createEntityManager();
 
+//        List<Product> products = em.createNamedQuery("findAllProducts", Product.class).getResultList();
 
 
         //Insert
