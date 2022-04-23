@@ -39,6 +39,18 @@
             <a class="btn btn-primary" th:href="@{/product/new}">Add Product</a>
         </div>
 
+        <div class="col-12 mt-3">
+            <form class="form-inline">
+                <div class="form-group mb-2 mr-2">
+                    <label for="titleFilter" class="sr-only">Title filter</label>
+                    <input type="text" class="form-control" id="titleFilter" th:value="${param.titleFilter}"
+                           name="titleFilter" placeholder="Title filter">
+                </div>
+
+                <button type="submit" class="btn btn-primary mb-2">Apply</button>
+            </form>
+        </div>
+
         <div class="col-12">
             <table class="table table-bordered my-2">
                 <thead>
@@ -50,16 +62,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="product : ${products}">
+                <tr th:unless="${products.isEmpty()}" th:each="product : ${products}">
                     <th scope="row" th:text="${product.id}">1</th>
                     <td th:text="${product.title}">Alex</td>
                     <td th:text="${product.cost}">0</td>
-                    <td>
+                    <td th:unless="${products.isEmpty()}">
                         <a class="btn btn-success" th:href="@{/product/{id}(id = ${product.id})}"><i
                                 class="fas fa-edit"></i></a>
                         <form class="d-inline" th:method="delete" th:action="@{/product/{id}/(id = ${product.id})}">
                             <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
                         </form>
+                    </td>
+                </tr>
+                <tr th:if="${products.isEmpty()}">
+                    <td colspan="4">
+                        No data
                     </td>
                 </tr>
                 </tbody>

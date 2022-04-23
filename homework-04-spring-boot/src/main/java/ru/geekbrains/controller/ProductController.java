@@ -1,6 +1,7 @@
 package ru.geekbrains.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import ru.geekbrains.persist.Product;
 import ru.geekbrains.persist.ProductRepository;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 
 @RequestMapping("/product")
@@ -23,8 +25,24 @@ public class ProductController {
     }
 
     @GetMapping
-    public String listPage(Model model) {
-        model.addAttribute("products", productRepository.findAll());
+    public String listPage(@RequestParam Optional<String> titleFilter,
+                           Model model) {
+
+//        String titleFilterValue = titleFilter
+//                .filter(s -> !s.isBlank())
+//                .orElse(null);
+//        String costFilterValue = costFilter
+//                .filter(s -> !s.isBlank())
+//                .orElse(null);
+//        model.addAttribute("products",
+//                productRepository.findProductByFilter(titleFilterValue, costFilterValue));
+
+
+        Specification<Product> spec = Specification.where(null);
+        if (titleFilter.isPresent() && !titleFilter.get().isBlank()) {
+            spec = spec.and(ProductSpecifications.titleContaining(titleFilter.get()));
+        }
+        model.addAttribute("products", productRepository.findAll(spec));
         return "product";
     }
 
@@ -43,7 +61,7 @@ public class ProductController {
 
     @PostMapping
     public String save(@Valid Product product, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "product_form";
         }
         productRepository.save(product);
@@ -51,14 +69,14 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable long id){
-        productRepository.delete(id);
+    public String delete(@PathVariable long id) {
+        productRepository.deleteById(id);
         return "redirect:/product";
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler
-    public String notFoundExceptionHandler(Model model, NotFoundException ex){
+    public String notFoundExceptionHandler(Model model, NotFoundException ex) {
         model.addAttribute("message", ex.getMessage());
         return "not_found";
     }
