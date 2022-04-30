@@ -1,37 +1,27 @@
-package ru.geekbrains.persist;
+package ru.geekbrains.dto;
 
-
-import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
-@Entity
-@Table(name = "products")
-public class Product {
+public class ProductDto {
 
-    @Id
-    @GeneratedValue
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @NotBlank
     private String title;
 
     @Min(0)
     @Max(100000)
     private int cost;
 
-    public Product(String title, int cost) {
-        this.title = title;
-        this.cost = cost;
-    }
-
-    public Product() {
-    }
-
-    public Product(Long id, String title, int cost) {
+    public ProductDto(Long id, String title, int cost) {
         this.id = id;
         this.title = title;
         this.cost = cost;
+    }
+
+    public ProductDto() {
     }
 
     public Long getId() {
@@ -58,3 +48,4 @@ public class Product {
         this.cost = cost;
     }
 }
+
