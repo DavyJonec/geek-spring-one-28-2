@@ -11,6 +11,7 @@ import ru.geekbrains.dto.ProductDto;
 import ru.geekbrains.persist.Product;
 import ru.geekbrains.persist.ProductRepository;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service

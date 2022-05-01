@@ -1,0 +1,22 @@
+GET http://localhost:8080/mvc-app/rest/v1/product/all
+
+###
+
+POST http://localhost:8080/mvc-app/rest/v1/product
+Content-Type: application/json
+
+    {
+      "title": "BigCarrot",
+      "cost": 99
+    }
+
+###
+
+PUT http://localhost:8080/mvc-app/rest/v1/product
+Content-Type: application/json
+
+    {
+      "id": 26,
+      "title": "LittleCarrot",
+      "cost": 99
+    }
